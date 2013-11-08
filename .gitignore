@@ -1,3 +1,19 @@
-./*.js
 _jqsrc
 node_modules
+
+# ignore all transformed jquery files
+/*.js
+
+# These are here more for dev sanity than integral to this package.
+/ajax
+/attributes
+/core
+/css
+/data
+/effects
+/event
+/exports
+/manipulation
+/queue
+/traversing
+/var
