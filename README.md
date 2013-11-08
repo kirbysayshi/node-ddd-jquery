@@ -4,6 +4,8 @@ ddd-jquery
 
 de-bowerified, de-amdified, de-gruntified... jQuery. Best used via [browserify][], when you don't want to include _all_ of jQuery, just the parts you need.
 
+NOTE: this is currently underdevelopment, it might not even work.
+
 [browserify]: https://github.com/substack/node-browserify
 
 usage
