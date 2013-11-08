@@ -1,7 +1,7 @@
 {
   "name": "ddd-jquery",
   "version": "0.1.0",
-  "description": "",
+  "description": "de-bowerified, de-amdified, de-gruntified... jQuery.",
   "dependencies": {
     "fs-extra": "~0.8.1",
     "glob": "~3.2.6",

@@ -2,7 +2,7 @@
 ddd-jquery
 ==========
 
-de-bowerified, de-amdified, de-gruntified... jQuery. Best used via [browserify][].
+de-bowerified, de-amdified, de-gruntified... jQuery. Best used via [browserify][], when you don't want to include _all_ of jQuery, just the parts you need.
 
 [browserify]: https://github.com/substack/node-browserify
 
@@ -49,9 +49,10 @@ jQuery is working towards being modular and thus consummable by AMD loaders. Unf
 
 * it requires a global install of bower
 * it's not published regularly on npm
-* it's in AMD style, is pretty easy to get over via [deamdify][]
+* it's in AMD style
+* browserify transforms only work on "top level" modules
 
-I tried just setting the jQuery repo as a dependency in a package.json, but that wouldn't even install due to the bower dependency.
+I tried just setting the jQuery repo as a dependency in a package.json, but that wouldn't even install due to the bower dependency. Even when I forced it to install, browserify transforms (to convert from AMD to CJS) only operate on "top level" files, meaning files directly included in your module, and not files from other modules. This means it's impossible to transform the jQuery AMD repo at browserify build time.
 
 [deamdify]: https://github.com/jaredhanson/deamdify
 
