@@ -14,7 +14,11 @@
     "escodegen": "0.0.28"
   },
   "devDependencies": {},
-  "scripts": {},
+  "scripts": {
+    "clean": "git clean -d -x --force --exclude=node_modules",
+    "postinstall": "node _bin/download.js",
+    "postupdate": "node _bin/download.js"
+  },
   "author": "Andrew Petersen <kirbysayshi@gmail.com>",
   "license": "MIT"
 }
