@@ -13,7 +13,7 @@ module.exports = function(cb) {
     if (err) return cb(err);
     unpack(tag, function(err, srcpath) {
       if (err) {
-        console.log(err);
+        console.error(err);
         return cb(err);
       }
       return cb(null, srcpath);
@@ -69,7 +69,7 @@ function unpack(tag, cb) {
 
     res
       .pipe(zlib.Gunzip())
-      .pipe(tar.Extract({ path: path.join(__dirname, '..', 'jqsrc') }))
+      .pipe(tar.Extract({ path: path.join(__dirname, '..', '_jqsrc') }))
       .on('entry', function(entry) {
         if (!prefix) {
           prefix = entry.props.path;
@@ -80,7 +80,7 @@ function unpack(tag, cb) {
         cb(err);
       })
       .on('end', function() {
-        cb(null, path.normalize(path.join(__dirname, '..', 'jqsrc', prefix, 'src')));
+        cb(null, path.normalize(path.join(__dirname, '..', '_jqsrc', prefix, 'src')));
       })
   })
 }

@@ -55,6 +55,9 @@ module.exports = function (file) {
   
   function write(buf) { data += buf }
   function end() {
+
+    console.error('Transforming file: ' + file);
+
     var ast = esprima.parse(data)
       , tast
       , isAMD = false;
