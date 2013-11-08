@@ -1,0 +1,17 @@
+{
+  "name": "ddd-jquery",
+  "version": "0.1.0",
+  "description": "",
+  "dependencies": {
+    "fs-extra": "~0.8.1",
+    "glob": "~3.2.6",
+    "semver": "~2.2.1",
+    "tar": "~0.1.18",
+    "zlib": "~1.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+  },
+  "author": "Andrew Petersen <kirbysayshi@gmail.com>",
+  "license": "MIT"
+}
