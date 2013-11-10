@@ -101,6 +101,21 @@ module.exports = function (file) {
             
             tast = createModuleExport(obj);
             this.break();
+          } else if (node.arguments.length == 1 && node.arguments[0].type == 'ArrayExpression') {
+
+            // define(['dep1/file'])
+            // Found in the jQuery source.
+            var dependencies = node.arguments[0];
+            var reqs = dependencies.elements.map(function(el) {
+              return createRequireExpression(el.value);
+            });
+
+            if (reqs) {
+              tast = createProgram(reqs);
+            }
+
+            this.break();
+
           } else if (node.arguments.length == 2 && node.arguments[0].type == 'ArrayExpression' && node.arguments[1].type == 'FunctionExpression') {
             var dependencies = node.arguments[0]
               , factory = node.arguments[1];
@@ -212,6 +227,25 @@ function createRequires(ids, vars) {
   return { type: 'VariableDeclaration',
     declarations: decls,
     kind: 'var' };
+}
+
+function createRequireExpression(id) {
+  return {
+    "type": "ExpressionStatement",
+    "expression": {
+      "type": "CallExpression",
+      "callee": {
+        "type": "Identifier",
+        "name": "require"
+      },
+      "arguments": [
+        {
+          "type": "Literal",
+          "value": id
+        }
+      ]
+    }
+  }
 }
 
 function createModuleExport(obj) {
