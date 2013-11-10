@@ -32,7 +32,7 @@ function getLatestTag(cb) {
     res.on('end', function() {
       var tags = JSON.parse(buf);
 
-      // Only grab 2.x.x and non-prerelease tags
+      // Only grab 2.x.x
       var valids = tags.filter(function(t) {
         try {
           return semver.satisfies(t.name, '>2.0.3');
