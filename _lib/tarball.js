@@ -7,7 +7,7 @@ var tar = require('tar')
 var request = require('./ghrequest')
 
 module.exports = function(tagdata, outdir, cb) {
-  console.error('requesting tag', tagdata.name, tagdata.tarball_url);
+  console.error('[GH] requesting tag', tagdata.name, tagdata.tarball_url);
   request(tagdata.tarball_url, function(err, res) {
     if (err) return cb(err);
 
@@ -21,7 +21,7 @@ module.exports = function(tagdata, outdir, cb) {
       .on('entry', function(entry) {
         if (!prefix) {
           prefix = entry.props.path;
-          console.error('prefix:', prefix);
+          console.error('[tar] prefix:', prefix);
         }
       })
       .on('error', function(err) {

@@ -56,7 +56,7 @@ module.exports = function (file) {
   function write(buf) { data += buf }
   function end() {
 
-    console.error('Transforming file: ' + file);
+    console.log('[deamdify]', file);
 
     var ast = esprima.parse(data)
       , tast

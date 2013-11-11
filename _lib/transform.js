@@ -12,8 +12,8 @@ var fs = require('fs-extra')
 // relatively to destpath.
 module.exports = function(srcpath, destpath, version, cb) {
 
-  console.error('src', srcpath);
-  console.error('dest', destpath);
+  console.log('[transform]', 'src', srcpath);
+  console.log('[transform]', 'dest', destpath);
 
   var waiting = 0;
 

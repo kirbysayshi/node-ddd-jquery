@@ -7,7 +7,7 @@ module.exports = function request(url, onRes) {
   https.get(url, function(res) {
 
     if (res.headers['x-ratelimit-remaining']) {
-      console.error('GH Rate Limit Remaining: '
+      console.error('[GH] Rate Limit Remaining: '
         + res.headers['x-ratelimit-remaining']);
     }
 
@@ -24,18 +24,18 @@ module.exports = function request(url, onRes) {
       case 307:
         // Continue requesting until we get a concrete tar.
         if (res.headers.location) {
-          process.stderr.write('Location: ' + res.headers.location + '\n');
+          process.stderr.write('[GH] Location: ' + res.headers.location + '\n');
           return request(res.headers.location, onRes);
         }
         break;
 
       case 403:
-        console.error('Github Error', res);
+        console.error('[GH] Github Error', res);
         console.error(res.headers);
         return onRes(res);
 
       default:
-        console.error('Unhandled status code', res);
+        console.error('[GH] Unhandled status code', res);
         console.error(res.headers);
         return onRes(res);
     }

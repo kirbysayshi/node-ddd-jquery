@@ -18,13 +18,12 @@ var tags = require('../_lib/tags')
 // Query for jQuery tags from github
 tags('jquery/jquery', '>2.0.3 <3', function(err, tagdata) {
 
-  console.log('Found jQuery tag data:', tagdata);
+  console.log('[GH] Found jQuery tag data:', tagdata);
 
   // Download newest tag tarball
   // gunzip / untar into _jqsrc
   tarball(tagdata, path.join(__dirname, '..', '_jqsrc'), function(err, jqpath) {
 
-    //var srcpath = path.join(__dirname, '..', '_jqsrc', 'jquery-jquery-1185427', 'src');
     var srcpath = path.join(jqpath, 'src');
     var destpath = path.join(__dirname, '..');
 
@@ -49,14 +48,14 @@ tags('jquery/jquery', '>2.0.3 <3', function(err, tagdata) {
           var pkgPath = path.join(destpath, 'package.json');
           writejqversion(pkgPath, tagdata, 'patch', function(err, dddversion) {
             if (err) throw err;
-            console.log('ddd-jquery:', dddversion);
+            console.log('[prepublish]', 'ddd-jquery', dddversion);
 
             // Copy tests to / to help development.
             // NOTE: we don't care if this succeeds or not.
             // TODO: this should be a separate "task" or script to make this
             // script more easily maintainable.
             fs.copy(path.join(jqpath, 'test'), path.join(destpath, 'test'), function(err) {
-              if (err) console.error(err);
+              if (err) console.log('[prepublish]', err);
             });
 
             // browserify ../jquery > ../dist/jquery.{min.,}js to be able to
@@ -66,7 +65,7 @@ tags('jquery/jquery', '>2.0.3 <3', function(err, tagdata) {
             var dist = path.join(destpath, 'dist');
             fs.mkdirs(dist, function(err) {
               if (err) {
-                console.log(err);
+                console.log('[prepublish]', err);
                 return;
               }
               var b = browserify();
