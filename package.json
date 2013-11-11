@@ -17,8 +17,7 @@
   "devDependencies": {},
   "scripts": {
     "clean": "git clean -d -x --force --exclude=node_modules",
-    "bower": "bower install",
-    "prepublish": "node _lib/prepublish"
+    "prepublish": "node _bin/prepublish"
   },
   "author": "Andrew Petersen <kirbysayshi@gmail.com>",
   "license": "MIT"
