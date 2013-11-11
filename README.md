@@ -27,6 +27,12 @@ require('ddd-jquery/manipulation')
 require('ddd-jquery/effects')
 ````
 
+Perhaps you want a fully-armed and operational jQuery?
+
+````js
+var $ = require('ddd-jquery');
+````
+
 Perhaps you want to avoid repetition?
 
 ````js
