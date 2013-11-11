@@ -16,6 +16,9 @@
     "bower": "~1.2.7",
     "browserify": "~2.35.1"
   },
+  "keywords": [
+    "jquery", "browserify", "deamdify", "modular"
+  ],
   "main": "./jquery.js",
   "repository": {
     "type": "git",
