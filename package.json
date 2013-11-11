@@ -1,6 +1,6 @@
 {
   "name": "ddd-jquery",
-  "version": "0.2.14+jquery.2.1.0-beta1.1185427",
+  "version": "0.2.15+jquery.2.1.0-beta1.1185427",
   "description": "de-bowerified, de-amdified, de-gruntified... jQuery.",
   "dependencies": {},
   "devDependencies": {
@@ -17,7 +17,10 @@
     "browserify": "~2.35.1"
   },
   "keywords": [
-    "jquery", "browserify", "deamdify", "modular"
+    "jquery",
+    "browserify",
+    "deamdify",
+    "modular"
   ],
   "main": "./jquery.js",
   "repository": {
