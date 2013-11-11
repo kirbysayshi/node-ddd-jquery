@@ -4,9 +4,11 @@ ddd-jquery
 
 de-bowerified, de-amdified, de-gruntified... jQuery. Best used via [browserify][], when you don't want to include _all_ of jQuery, just the parts you need.
 
+Plus, it rhymes.
+
 [browserify]: https://github.com/substack/node-browserify
 
-usage
+Usage
 -----
 
 ````
@@ -48,7 +50,7 @@ jQuery is still relatively interdependent on itself, so I recommend using their 
 
 [modules list]: https://github.com/jquery/jquery#modules
 
-rationale
+Rationale
 ---------
 
 jQuery is working towards being modular and thus consummable by AMD loaders. Unfortunately, the jQuery repo is not easily consummable via npm or browserify:
@@ -65,7 +67,7 @@ I tried just setting the jQuery repo as a dependency in a package.json, but that
 
 I also want to note that it's super cool that jQuery is moving towards more modular builds, especially using Grunt. But creating a custom build is something can be handled implicitly via requiring your dependencies using browserify. It's also more difficult to track version numbers and changes when using a custom build vs a package that you require.
 
-how this works
+How This Works
 --------------
 
 This package has a few scripts that grab the latest tagged tarball of jQuery from Github, unpacks it, transforms it and its bower dependencies (sizzle, mainly) into non-AMD CJS (via a custom [deamdify][]), and copies them into the root of this package. It also includes the current bundled version number of jQuery as build metadata of this package (http://semver.org/ #10). For example:
@@ -96,14 +98,14 @@ The actual steps taken to transform the jQuery repo as as follows:
 - [x] Bump package.json patch version.
 - [x] Sanity check: ensure that a few files are present (jquery.js, core.js, sizzle.js, etc), and that build info in package.json matches `require('./core').fn.jquery`.
 
-developing
+Developing
 ----------
 
 Pretty simple actually. To avoid conflicts, all scripts specific to this package are in `_` prefixed folders. There is also an `npm run clean` command that will delete everything in the repo that is not explicitly tracked by git (excluding the `node_modules` folder).
 
 Github does rate limit, so keep in mind if constantly testing.
 
-to release a new version
+To Release a New Nersion
 ------------------------
 
 This is as much a reminder to me as information for all to understand.
@@ -115,7 +117,7 @@ This is as much a reminder to me as information for all to understand.
 - Commit changes
 - `npm publish`
 
-credits
+Credits
 -------
 
 - [deamdify][], by [jaredhanson](https://github.com/jaredhanson) is included with custom modifications
