@@ -17,6 +17,10 @@
     "browserify": "~2.35.1"
   },
   "main": "./jquery.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kirbysayshi/node-ddd-jquery.git"
+  },
   "scripts": {
     "clean": "git clean -d -x --force --exclude=node_modules",
     "prepublish": "node _bin/prepublish"

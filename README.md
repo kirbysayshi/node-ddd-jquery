@@ -114,8 +114,8 @@ This is as much a reminder to me as information for all to understand.
 - Serve the root directory using PHP. If you have `>= PHP 5.4`, then `php -S localhost:8000` will do the trick.
 - Visit `http://localhost:8000/test?dev` and ensure that a majority of the tests pass. The current AMD-ified version of jQuery is a beta tag, so I'm assuming not all tests are currently passing.
 - Ensure that the version in `package.json` adaquately matches jQuery changes. For example, if the previous time this package was released, the jQuery version was `2.1.0-beta1`, and now it's `2.1.0`, bump the minor version of this package. The basic idea is that if something changes in jQuery, this package's version should semantically match.
-- Commit changes
 - `npm publish`
+- Commit changes (since prepublish will bump version for you)
 
 Credits
 -------
