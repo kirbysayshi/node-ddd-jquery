@@ -1,5 +1,9 @@
 _jqsrc
+
 node_modules
+bower_components
+dist
+test
 
 # ignore all transformed jquery files
 /*.js
@@ -17,3 +21,4 @@ node_modules
 /queue
 /traversing
 /var
+

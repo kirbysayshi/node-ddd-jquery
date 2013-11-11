@@ -4,8 +4,6 @@ ddd-jquery
 
 de-bowerified, de-amdified, de-gruntified... jQuery. Best used via [browserify][], when you don't want to include _all_ of jQuery, just the parts you need.
 
-NOTE: this is currently underdevelopment, it might not even work.
-
 [browserify]: https://github.com/substack/node-browserify
 
 usage
@@ -53,6 +51,9 @@ jQuery is working towards being modular and thus consummable by AMD loaders. Unf
 * it's not published regularly on npm
 * it's in AMD style
 * browserify transforms only work on "top level" modules
+* it's primary bower dependency, [sizzle][] is not up to date on npm
+
+[sizzle]: https://github.com/jquery/sizzle
 
 I tried just setting the jQuery repo as a dependency in a package.json, but that wouldn't even install due to the bower dependency. Even when I forced it to install, browserify transforms (to convert from AMD to CJS) only operate on "top level" files, meaning files directly included in your module, and not files from other modules. This means it's impossible to transform the jQuery AMD repo at browserify build time.
 
@@ -61,20 +62,28 @@ I tried just setting the jQuery repo as a dependency in a package.json, but that
 how this works
 --------------
 
-This package has a [postinstall][] script that downloads the newest tagged tarball of jQuery from Github, unpacks it, and transforms each file in the [src][] directory, via [deamdify][]. It outputs the transformed files into the root of this package, making for easy `require` statements.
+This package has a few scripts that grab the latest tagged tarbal of jQuery from Github, unpacks it, transforms it and its bower dependencies (sizzle, mainly) into non-AMD CJS (via a custom [deamdify][]), and copies them into the root of this package. It also includes the current bundled version number of jQuery as build metadata of this package (http://semver.org/ #10). For example:
 
-BUT WAIT I THOUGHT [postinstall][] WAS AN ANTIPATTERN.
+    0.1.2+jquery2.1.0-beta1.1185427
 
-Yeah, it might be, even in this case. I may end up packaging the transformed files into this repo. We'll see.
-
-[postinstall]: https://npmjs.org/doc/misc/npm-scripts.html
-[src]: https://github.com/jquery/jquery/tree/master/src
+... implies that this package, `v0.1.2` contains jQuery `2.1.0-beta` which was extracted from the tarball of commit with a sha of `1185427`.
 
 developing
 ----------
 
-Pretty simple actually. To avoid conflicts, all scripts specific to this package are in `_` prefixed folders. There are also a `npm run clean` command that will delete everything in the repo that is not explicitly tracked by git (excluding the `node_modules` folder).
+Pretty simple actually. To avoid conflicts, all scripts specific to this package are in `_` prefixed folders. There is also an `npm run clean` command that will delete everything in the repo that is not explicitly tracked by git (excluding the `node_modules` folder).
 
-Keep in mind that Github rate limits, so keep in mind if constantly testing.
+Github does rate limit, so keep in mind if constantly testing.
 
+to release a new version
+------------------------
+
+This is as much a reminder to me as information for all to understand.
+
+- Run `node _lib/prepublish.js`.
+- Serve the root directory using PHP. If you have `>= PHP 5.4`, then `php -S localhost:8000` will do the trick.
+- Visit `http://localhost:8000/test?dev` and ensure that a majority of the tests pass. The current AMD-ified version of jQuery is a beta tag, so I'm assuming not all tests are currently passing.
+- Ensure that the version in `package.json` adaquately matches jQuery changes. For example, if the previous time this package was released, the jQuery version was `2.1.0-beta1`, and now it's `2.1.0`, bump the minor version of this package. The basic idea is that if something changes in jQuery, this package's version should semantically match.
+- Commit changes
+- `npm publish`
 

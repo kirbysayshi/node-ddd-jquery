@@ -18,6 +18,7 @@ module.exports = function (file, sizzlePath) {
     estraverse.replace(ast, {
 
       leave: function(node) {
+        // Handle any require('sizzle') statements.
         if (
           node.type === 'CallExpression'
           && node.callee.type === 'Identifier'
