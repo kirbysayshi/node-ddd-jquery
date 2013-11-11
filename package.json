@@ -1,6 +1,6 @@
 {
   "name": "ddd-jquery",
-  "version": "0.2.10+jquery.2.1.0-beta1.1185427",
+  "version": "0.2.13+jquery.2.1.0-beta1.1185427",
   "description": "de-bowerified, de-amdified, de-gruntified... jQuery.",
   "dependencies": {},
   "devDependencies": {
