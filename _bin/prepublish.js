@@ -45,43 +45,45 @@ tags('jquery/jquery', '>2.0.3 <3', function(err, tagdata) {
         copysizzle(destpath, destpath, function(err, sizzlepath) {
           if (err) throw err;
 
+          // Write the current jquery version as build metadata in package.json.
           var pkgPath = path.join(destpath, 'package.json');
           writejqversion(pkgPath, tagdata, 'patch', function(err, dddversion) {
             if (err) throw err;
             console.log('ddd-jquery:', dddversion);
+
+            // Copy tests to / to help development.
+            // NOTE: we don't care if this succeeds or not.
+            // TODO: this should be a separate "task" or script to make this
+            // script more easily maintainable.
+            fs.copy(path.join(jqpath, 'test'), path.join(destpath, 'test'), function(err) {
+              if (err) console.error(err);
+            });
+
+            // browserify ../jquery > ../dist/jquery.{min.,}js to be able to
+            // run the tests.
+            // NOTE: not important whatsoever to the actual package, just for
+            // trying to run the jQuery tests with the transformed files.
+            var dist = path.join(destpath, 'dist');
+            fs.mkdirs(dist, function(err) {
+              if (err) {
+                console.log(err);
+                return;
+              }
+              var b = browserify();
+              b.add(path.join(destpath, 'jquery.js'));
+              var bundle = b.bundle();
+              bundle.pipe(fs.createWriteStream(path.join(dist, 'jquery.min.js')))
+              bundle.pipe(fs.createWriteStream(path.join(dist, 'jquery.js')))
+            });
+
+            // Lastly, perform the santity check that we are ready to publish.
+            sanitycheck(destpath, function(err) {
+              if (err) throw err;
+              else process.exit(0);
+            })
           })
         })
 
-        // Copy tests to / to help development.
-        // NOTE: we don't care if this succeeds or not.
-        // TODO: this should be a separate "task" or script to make this
-        // script more easily maintainable.
-        fs.copy(path.join(jqpath, 'test'), path.join(destpath, 'test'), function(err) {
-          if (err) console.error(err);
-        });
-
-        // browserify ../jquery > ../dist/jquery.{min.,}js to be able to
-        // run the tests.
-        // NOTE: not important whatsoever to the actual package, just for
-        // trying to run the jQuery tests with the transformed files.
-        var dist = path.join(destpath, 'dist');
-        fs.mkdirs(dist, function(err) {
-          if (err) {
-            console.log(err);
-            return;
-          }
-          var b = browserify();
-          b.add(path.join(destpath, 'jquery.js'));
-          var bundle = b.bundle();
-          bundle.pipe(fs.createWriteStream(path.join(dist, 'jquery.min.js')))
-          bundle.pipe(fs.createWriteStream(path.join(dist, 'jquery.js')))
-        });
-
-        // Lastly, perform the santity check that we are ready to publish.
-        sanitycheck(destpath, function(err) {
-          if (err) throw err;
-          else process.exit(0);
-        })
       });
     });
   })
