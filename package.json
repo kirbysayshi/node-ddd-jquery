@@ -2,7 +2,8 @@
   "name": "ddd-jquery",
   "version": "0.2.0+jquery.2.1.0-beta1.1185427",
   "description": "de-bowerified, de-amdified, de-gruntified... jQuery.",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "fs-extra": "~0.8.1",
     "glob": "~3.2.6",
     "semver": "~2.2.1",
@@ -14,7 +15,6 @@
     "escodegen": "0.0.28",
     "bower": "~1.2.7"
   },
-  "devDependencies": {},
   "main": "./jquery.js",
   "scripts": {
     "clean": "git clean -d -x --force --exclude=node_modules",
