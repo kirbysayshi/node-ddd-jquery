@@ -6,7 +6,9 @@ var semver = require('semver');
 module.exports = function(pkgPath, tagdata, release, cb) {
   var pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
 
-  var bumped = semver.inc(pkg.version, release);
+  var bumped = release
+    ? semver.inc(pkg.version, release)
+    : semver.valid(pkg.version);
   var shortsha = tagdata.commit.sha.substring(0, 7);
   var jqversion = 'jquery.' + tagdata.name + '.' + shortsha;
 

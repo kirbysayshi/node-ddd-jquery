@@ -15,6 +15,8 @@ var tags = require('../_lib/tags')
 
 // TODO: use a real logger.
 
+var pkgVersionInc = process.argv[2];
+
 // Query for jQuery tags from github
 tags('jquery/jquery', '>2.0.3 <3', function(err, tagdata) {
 
@@ -46,7 +48,7 @@ tags('jquery/jquery', '>2.0.3 <3', function(err, tagdata) {
 
           // Write the current jquery version as build metadata in package.json.
           var pkgPath = path.join(destpath, 'package.json');
-          writejqversion(pkgPath, tagdata, 'patch', function(err, dddversion) {
+          writejqversion(pkgPath, tagdata, pkgVersionInc, function(err, dddversion) {
             if (err) throw err;
             console.log('[prepublish]', 'ddd-jquery', dddversion);
 
