@@ -76,7 +76,7 @@ transform(srcpath, destpath, jqpkg.version, function(err) {
         sanitycheck(destpath, function(err) {
           if (err) throw err;
           console.log('[sanitycheck]', 'Cast in the name of science, ye are sane?')
-          else process.exit(0);
+          process.exit(0);
         })
       })
     })
