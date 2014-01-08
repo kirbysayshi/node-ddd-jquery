@@ -3,14 +3,13 @@ var fs = require('fs-extra');
 
 var semver = require('semver');
 
-module.exports = function(pkgPath, tagdata, release, cb) {
+module.exports = function(pkgPath, jqPkgVersion, release, cb) {
   var pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
 
   var bumped = release
     ? semver.inc(pkg.version, release)
     : semver.valid(pkg.version);
-  var shortsha = tagdata.commit.sha.substring(0, 7);
-  var jqversion = 'jquery.' + tagdata.name + '.' + shortsha;
+  var jqversion = 'jquery.' + jqPkgVersion;
 
   pkg.version = bumped + '+' + jqversion;
   var out = fs.createWriteStream(pkgPath)

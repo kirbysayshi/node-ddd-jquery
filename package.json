@@ -14,7 +14,8 @@
     "esprima": "~1.0.4",
     "escodegen": "0.0.28",
     "bower": "~1.2.7",
-    "browserify": "~2.35.1"
+    "browserify": "~2.35.1",
+    "jquery": "~2.1.0-beta3"
   },
   "keywords": [
     "jquery",
