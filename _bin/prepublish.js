@@ -50,7 +50,7 @@ transform(srcpath, destpath, jqpkg.version, function(err) {
         // script more easily maintainable.
         fs.copy(path.join(jqpath, 'test'), path.join(destpath, 'test'), function(err) {
           if (err) {
-            console.log('[prepublish]', 'Error while attempting to copy jQuery tests.');
+            console.log('[prepublish]', 'Error while attempting to copy jQuery tests:');
             console.log('[prepublish]', err);
           }
         });
@@ -75,6 +75,7 @@ transform(srcpath, destpath, jqpkg.version, function(err) {
         // Lastly, perform the santity check that we are ready to publish.
         sanitycheck(destpath, function(err) {
           if (err) throw err;
+          console.log('[sanitycheck]', 'Cast in the name of science, ye are sane?')
           else process.exit(0);
         })
       })
