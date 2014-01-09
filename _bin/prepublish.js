@@ -44,17 +44,6 @@ transform(srcpath, destpath, jqpkg.version, function(err) {
         if (err) throw err;
         console.log('[prepublish]', 'ddd-jquery', dddversion);
 
-        // Copy tests to / to help development.
-        // NOTE: we don't care if this succeeds or not.
-        // TODO: this should be a separate "task" or script to make this
-        // script more easily maintainable.
-        fs.copy(path.join(jqpath, 'test'), path.join(destpath, 'test'), function(err) {
-          if (err) {
-            console.log('[prepublish]', 'Error while attempting to copy jQuery tests:');
-            console.log('[prepublish]', err);
-          }
-        });
-
         // browserify ../jquery > ../dist/jquery.{min.,}js to be able to
         // run the tests.
         // NOTE: not important whatsoever to the actual package, just for
@@ -75,7 +64,7 @@ transform(srcpath, destpath, jqpkg.version, function(err) {
         // Lastly, perform the santity check that we are ready to publish.
         sanitycheck(destpath, function(err) {
           if (err) throw err;
-          console.log('[sanitycheck]', 'Cast in the name of science, ye are sane?')
+          console.log('[sanitycheck]', 'CAST IN THE NAME OF SCIENCE, YE ARE SANE.')
           process.exit(0);
         })
       })
