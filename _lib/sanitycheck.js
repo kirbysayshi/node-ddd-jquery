@@ -19,13 +19,23 @@ module.exports = function(dir, cb) {
 
   checkFileExistence(keyfiles, function(err) {
     if (err) return cb(err);
+    done();
   });
 
   // Ensure that the jquery version specified in the build metadata
   // of package.json matches that in the local directory.
   compareVersions(function(err) {
     if (err) return cb(err);
+    done();
   })
+
+  var waiting = 2;
+  function done() {
+    waiting -= 1;
+    if (waiting === 0) {
+      cb(null);
+    }
+  }
 }
 
 function checkFileExistence(files, cb) {
@@ -51,7 +61,9 @@ function compareVersions(cb) {
     var err = new Error('Build metadata in version field ('
       + pkg.version
       + ') does not exist');
-    return cb(err);
+    return process.nextTick(function() {
+      cb(err);
+    })
   }
 
   var buildTagName = buildMeta
@@ -65,8 +77,12 @@ function compareVersions(cb) {
   if (jq.fn.jquery !== buildTagName) {
     var msg = 'jQuery.fn.jquery (' + jq.fn.jquery + ') '
       + 'does not match build metadata (' + buildTagName + ')';
-    return cb(new Error(msg));
+    return process.nextTick(function() {
+      cb(new Error(msg));
+    })
   }
 
-  return cb(null);
+  return process.nextTick(function() {
+    cb(null);
+  })
 }
